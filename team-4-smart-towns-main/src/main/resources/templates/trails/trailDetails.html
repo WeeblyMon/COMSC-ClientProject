@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:replace="~{/fragments/header :: bootstrap-css}"/>
+    <link th:replace="~{/fragments/header :: mainstyles}"/>
+
+    <link rel="stylesheet" href="/stylesheets/traildetails.css">
+
+
+    <script>
+        window.trailId = /*[[${trail.id}]]*/ 'defaultTrailId';
+    </script>
+    <script src="/scripts/map.js"></script>
+
+    <link rel="stylesheet" th:href="@{/stylesheets/dark-mode.css}"/>
+    <script th:src="@{/scripts/dark-mode.js}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZ3drUc6J041ouIRB-BoDsj3CcepeDfb0&callback=initMap"
+            async></script>
+
+    <title>VZTA Trails</title>
+</head>
+<body>
+<div class="main-container">
+    <header th:replace="~{/fragments/header :: navbar}"></header>
+    <div class="page-container">
+
+        <h1> Trail Details </h1>
+        <p>The trail details can be found below:</p>
+        <br>
+
+        <div class="trail-container">
+            <div class="trail-picture">
+<!--                <a class="trail-image-container" href="../../static/images/trail1Placeholder.jpg">-->
+<!--                    <img class="trail-image" src=""-->
+<!--                         alt="Feature picture/map">-->
+<!--                </a>-->
+                <a class="trail-image-container">
+                    <img class="trail-image" src="" alt="Feature Picture">
+                </a>
+            </div>
+            <br>
+
+
+            <h1 class="name" th:text="${trail.name}"></h1>
+            <!--Add Map Here -->
+            <div id="map" th:data-trail-id="${trail.id}" style="height: 400px;"></div>
+
+            <br>
+            <strong>Location: </strong>
+            <div class="location" th:text="${trail.location}"></div>
+            <strong>Description: </strong>
+            <div class="trailDescription" th:text="${trail.description}"></div>
+            <br>
+            <h2><strong>Checkpoints: </strong></h2>
+            <ul class="trail-checkpoints">
+                <div th:each="checkpoint: ${trail.checkpoints}">
+                    <li>
+<!--                        <div th:text="'id: ' + ${checkpoint.id}"></div>-->
+                        <strong><p th:text="${checkpoint.name}"></p></strong>
+                        <p th:text="${checkpoint.getDescription()}"></p>
+                    </li>
+                </div>
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+<!--<script src="/scripts/dark-mode.js"></script>-->
+
+</body>
+</html>
